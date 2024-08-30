@@ -2,10 +2,18 @@ module ALU_control
 (
     input [2:0] funct3,
     input [6:0] funct7,
+    input altOP,
     output reg [3:0] aluOP
 );
 
 /*
+altOP:
+    1'b0 = use funct
+    1'b1 = Load/Store/branch/jal/jalr/lui/auipc (add)
+*/
+
+/*
+aluOP:
     4'b0000 = add
     4'b0001 = sub
     4'b0010 = xor
@@ -51,6 +59,9 @@ always @( * ) begin
         //sltu
         3'h3: aluOP = 4'h9;
     endcase
+
+    aluOP = (altOP == 0) ? aluOP : 4'b0000;
+
 end
 
 endmodule

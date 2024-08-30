@@ -1,6 +1,6 @@
 `include "ALU_stage.v"
 
-module ALU_test ();
+module test_ALU ();
 
 
 reg [31:0] regdataA;

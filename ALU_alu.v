@@ -6,8 +6,7 @@ module ALU_alu
     input [3:0] aluOP,
     input [OPERAND_WIDTH-1:0] operand1,
     input [OPERAND_WIDTH-1:0] operand2,
-    output reg [OPERAND_WIDTH-1:0] result,
-    output reg [2:0] flags
+    output reg [OPERAND_WIDTH-1:0] result
 );
 
 /*
@@ -23,13 +22,6 @@ module ALU_alu
     4'b1001 = sltu
 */
 always @( * ) begin
-    //blt(1), bge(0)
-    flags[0] = ($signed(operand1) < $signed(operand2)) ? 1:0;
-    //bltu(1), bgeu(0)
-    flags[1] = (operand1 < operand2) ? 1:0;
-    //beq(1), bne(0)
-    flags[2] = (operand1 == operand2) ? 1:0;
-
     case (aluOP)
         4'b0000: result = operand1 + operand2;
         4'b0001: result = operand1 - operand2;

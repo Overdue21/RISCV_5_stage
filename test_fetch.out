@@ -1,0 +1,213 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 3;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x11f7046d0 .scope module, "test_FETCH" "test_FETCH" 2 4;
+ .timescale 0 -3;
+v0x11f609b90_0 .net "PC", 31 0, L_0x11f60a140;  1 drivers
+v0x11f609c60_0 .var "branchSel", 0 0;
+v0x11f609d30_0 .var "branchTarget", 31 0;
+v0x11f609e00_0 .var "clk", 0 0;
+v0x11f609ed0_0 .var/i "i", 31 0;
+v0x11f609fa0_0 .var "reset", 0 0;
+v0x11f60a070_0 .var "stall", 0 0;
+S_0x11f704840 .scope module, "dut" "FETCH_stage" 2 19, 3 5 0, S_0x11f7046d0;
+ .timescale 0 -3;
+    .port_info 0 /INPUT 1 "branchSel";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "stall";
+    .port_info 3 /INPUT 1 "reset";
+    .port_info 4 /INPUT 32 "branchTarget";
+    .port_info 5 /OUTPUT 32 "PC";
+L_0x11f60a140 .functor BUFZ 32, v0x11f609020_0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0x11f609230_0 .net "PC", 31 0, L_0x11f60a140;  alias, 1 drivers
+v0x11f6092d0_0 .net "PCin", 31 0, v0x11f6089b0_0;  1 drivers
+v0x11f6093b0_0 .net "PCout", 31 0, v0x11f609020_0;  1 drivers
+v0x11f609480_0 .net "PCp4", 31 0, v0x11f608360_0;  1 drivers
+v0x11f609550_0 .net "branchSel", 0 0, v0x11f609c60_0;  1 drivers
+v0x11f609620_0 .net "branchTarget", 31 0, v0x11f609d30_0;  1 drivers
+v0x11f6096b0_0 .net "clk", 0 0, v0x11f609e00_0;  1 drivers
+L_0x120018010 .functor BUFT 1, C4<00000000000000000000000000000100>, C4<0>, C4<0>, C4<0>;
+v0x11f609740_0 .net "four", 31 0, L_0x120018010;  1 drivers
+v0x11f6097d0_0 .net "reset", 0 0, v0x11f609fa0_0;  1 drivers
+v0x11f609900_0 .net "stall", 0 0, v0x11f60a070_0;  1 drivers
+S_0x11f709720 .scope module, "adder" "ALU_adder" 3 46, 4 1 0, S_0x11f704840;
+ .timescale 0 -3;
+    .port_info 0 /INPUT 32 "operand1";
+    .port_info 1 /INPUT 32 "operand2";
+    .port_info 2 /OUTPUT 32 "out";
+v0x11f715570_0 .net "operand1", 31 0, L_0x120018010;  alias, 1 drivers
+v0x11f6082a0_0 .net "operand2", 31 0, v0x11f609020_0;  alias, 1 drivers
+v0x11f608360_0 .var "out", 31 0;
+E_0x11f715080 .event anyedge, v0x11f715570_0, v0x11f6082a0_0;
+S_0x11f608470 .scope module, "inputSel" "mux_2_1" 3 29, 5 1 0, S_0x11f704840;
+ .timescale 0 -3;
+    .port_info 0 /INPUT 32 "in1";
+    .port_info 1 /INPUT 32 "in2";
+    .port_info 2 /INPUT 1 "select";
+    .port_info 3 /OUTPUT 32 "out";
+P_0x11f608640 .param/l "WIDTH" 0 5 3, +C4<00000000000000000000000000100000>;
+v0x11f608850_0 .net "in1", 31 0, v0x11f608360_0;  alias, 1 drivers
+v0x11f608920_0 .net "in2", 31 0, v0x11f609d30_0;  alias, 1 drivers
+v0x11f6089b0_0 .var "out", 31 0;
+v0x11f608a40_0 .net "select", 0 0, v0x11f609c60_0;  alias, 1 drivers
+E_0x11f6087e0 .event anyedge, v0x11f608a40_0, v0x11f608360_0, v0x11f608920_0;
+S_0x11f608b00 .scope module, "programCounter" "FETCH_PC" 3 37, 6 1 0, S_0x11f704840;
+ .timescale 0 -3;
+    .port_info 0 /INPUT 32 "address";
+    .port_info 1 /INPUT 1 "enable";
+    .port_info 2 /INPUT 1 "reset";
+    .port_info 3 /INPUT 1 "clk";
+    .port_info 4 /OUTPUT 32 "out";
+v0x11f608e10_0 .net "address", 31 0, v0x11f6089b0_0;  alias, 1 drivers
+v0x11f608ee0_0 .net "clk", 0 0, v0x11f609e00_0;  alias, 1 drivers
+v0x11f608f70_0 .net "enable", 0 0, v0x11f60a070_0;  alias, 1 drivers
+v0x11f609020_0 .var "out", 31 0;
+v0x11f6090e0_0 .net "reset", 0 0, v0x11f609fa0_0;  alias, 1 drivers
+E_0x11f608d70 .event posedge, v0x11f608ee0_0;
+E_0x11f608dc0 .event anyedge, v0x11f6090e0_0;
+S_0x11f6099c0 .scope task, "init" "init" 2 30, 2 30 0, S_0x11f7046d0;
+ .timescale 0 -3;
+TD_test_FETCH.init ;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609c60_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f60a070_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609fa0_0, 0;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x11f609fa0_0, 0;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609fa0_0, 0;
+    %pushi/vec4 2147483648, 0, 32;
+    %assign/vec4 v0x11f609d30_0, 0;
+    %end;
+    .scope S_0x11f608470;
+T_1 ;
+    %wait E_0x11f6087e0;
+    %load/vec4 v0x11f608a40_0;
+    %dup/vec4;
+    %pushi/vec4 0, 0, 1;
+    %cmp/u;
+    %jmp/1 T_1.0, 6;
+    %dup/vec4;
+    %pushi/vec4 1, 0, 1;
+    %cmp/u;
+    %jmp/1 T_1.1, 6;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x11f6089b0_0, 0, 32;
+    %jmp T_1.3;
+T_1.0 ;
+    %load/vec4 v0x11f608850_0;
+    %store/vec4 v0x11f6089b0_0, 0, 32;
+    %jmp T_1.3;
+T_1.1 ;
+    %load/vec4 v0x11f608920_0;
+    %store/vec4 v0x11f6089b0_0, 0, 32;
+    %jmp T_1.3;
+T_1.3 ;
+    %pop/vec4 1;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0x11f608b00;
+T_2 ;
+    %wait E_0x11f608dc0;
+    %load/vec4 v0x11f6090e0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_2.0, 8;
+    %pushi/vec4 0, 0, 32;
+    %assign/vec4 v0x11f609020_0, 0;
+T_2.0 ;
+    %jmp T_2;
+    .thread T_2, $push;
+    .scope S_0x11f608b00;
+T_3 ;
+    %wait E_0x11f608d70;
+    %load/vec4 v0x11f608f70_0;
+    %nor/r;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_3.0, 8;
+    %load/vec4 v0x11f608e10_0;
+    %assign/vec4 v0x11f609020_0, 0;
+T_3.0 ;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0x11f709720;
+T_4 ;
+    %wait E_0x11f715080;
+    %load/vec4 v0x11f715570_0;
+    %load/vec4 v0x11f6082a0_0;
+    %add;
+    %store/vec4 v0x11f608360_0, 0, 32;
+    %jmp T_4;
+    .thread T_4, $push;
+    .scope S_0x11f7046d0;
+T_5 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x11f609ed0_0, 0, 32;
+    %end;
+    .thread T_5;
+    .scope S_0x11f7046d0;
+T_6 ;
+    %fork TD_test_FETCH.init, S_0x11f6099c0;
+    %join;
+T_6.0 ;
+    %load/vec4 v0x11f609ed0_0;
+    %cmpi/s 20, 0, 32;
+    %jmp/0xz T_6.1, 5;
+    %load/vec4 v0x11f609ed0_0;
+    %pushi/vec4 5, 0, 32;
+    %mod/s;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_6.2, 4;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x11f609c60_0, 0;
+T_6.2 ;
+    %load/vec4 v0x11f609ed0_0;
+    %pushi/vec4 10, 0, 32;
+    %mod/s;
+    %subi 1, 0, 32;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_6.4, 4;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x11f609fa0_0, 0;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609fa0_0, 0;
+T_6.4 ;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x11f609e00_0, 0;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609e00_0, 0;
+    %delay 10000, 0;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v0x11f609ed0_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %store/vec4 v0x11f609ed0_0, 0, 32;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f609c60_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x11f60a070_0, 0;
+    %vpi_call 2 61 "$display", "%h", v0x11f609b90_0 {0 0 0};
+    %jmp T_6.0;
+T_6.1 ;
+    %end;
+    .thread T_6;
+# The file index is used to find the file name in the following table.
+:file_names 7;
+    "N/A";
+    "<interactive>";
+    "test_FETCH.v";
+    "./FETCH_stage.v";
+    "./ALU_adder.v";
+    "./mux_2_1.v";
+    "./FETCH_PC.v";
